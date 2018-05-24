@@ -10,3 +10,6 @@ yarn-error.log
 *.ntvs*
 *.njsproj
 *.sln
+
+# Config to conect LastFM
+src/api/config.js
