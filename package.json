@@ -11,7 +11,8 @@
   },
   "dependencies": {
     "vue": "^2.5.11",
-    "vue-spinner": "^1.0.3"
+    "vue-spinner": "^1.0.3",
+    "vue2-filters": "^0.3.0"
   },
   "browserslist": [
     "> 1%",
