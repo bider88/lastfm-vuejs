@@ -4,6 +4,8 @@
     h1 Last.fm VueJS
     select(v-model="selectedCountry")
       option(v-for="country in countries" v-bind:value="country.value") {{ country.name }}
+    .spinner
+      ring-loader(:loading="loading" :color="color" :size="size")
     ul
       artist(v-for="artist in artists" v-bind:artist="artist" v-bind:key="artist.mbid")
       //- li(v-for="artist in artists") {{ artist.name }}
@@ -13,6 +15,8 @@
 <script>
 import getArtists from './api'
 import Artist from './components/Artist'
+import RingLoader from 'vue-spinner/src/RingLoader.vue'
+
 export default {
   name: 'app',
   data () {
@@ -23,18 +27,25 @@ export default {
         {name: 'España', value: 'spain'},
         {name: 'Alemania', value: 'germany'}
       ],
-      selectedCountry: 'mexico'
+      selectedCountry: 'mexico',
+      loading: true,
+      color: '#35495E',
+      size: '60px'
     }
   },
   components: {
-    Artist
+    Artist,
+    RingLoader
   },
   methods: {
     getAllArtists() {
       const self = this
+      this.loading = true
+      this.artists = []
       getArtists(this.selectedCountry)
         .then(function(artists) {
           self.artists = artists
+          self.loading = false
         })
     }
   },
@@ -71,4 +82,7 @@ li
 
 a
   color #42b983
+.spinner
+  margin 50px auto
+  width 75px
 </style>
