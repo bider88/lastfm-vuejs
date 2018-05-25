@@ -2,27 +2,49 @@
   #app
     img(src='./assets/logo.png')
     h1 Last.fm VueJS
+    select(v-model="selectedCountry")
+      option(v-for="country in countries" v-bind:value="country.value") {{ country.name }}
     ul
-      li(v-for="artist in artists") {{ artist.name }}
+      artist(v-for="artist in artists" v-bind:artist="artist" v-bind:key="artist.mbid")
+      //- li(v-for="artist in artists") {{ artist.name }}
 
 </template>
 
 <script>
 import getArtists from './api'
-
+import Artist from './components/Artist'
 export default {
   name: 'app',
   data () {
     return {
-      artists: []
+      artists: [],
+      countries: [
+        {name: 'Mexico', value: 'mexico'},
+        {name: 'España', value: 'spain'},
+        {name: 'Alemania', value: 'germany'}
+      ],
+      selectedCountry: 'mexico'
     }
   },
-  mounted: function() {
-    const self = this
-    getArtists()
-      .then(function(artists) {
-        self.artists = artists
-      })
+  components: {
+    Artist
+  },
+  methods: {
+    getAllArtists() {
+      const self = this
+      getArtists(this.selectedCountry)
+        .then(function(artists) {
+          self.artists = artists
+        })
+    }
+  },
+  mounted() {
+    this.getAllArtists()
+  },
+  watch: {
+    selectedCountry: function() {
+      this.getAllArtists()
+    }
   }
 }
 </script>
