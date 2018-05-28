@@ -8,8 +8,7 @@
       input(v-model="searchArtist" placeholder="Buscar artista...")
     .spinner
       ring-loader(:loading="loading" :color="color" :size="size")
-    ul
-      artist(v-for="artist in filterBy(artists, searchArtist, 'name')" v-bind:artist="artist" v-bind:key="artist.mbid")
+    artist(v-for="artist in filterBy(artists, searchArtist, 'name')" v-bind:artist="artist" v-bind:key="artist.mbid")
 
 </template>
 
@@ -94,11 +93,11 @@ select, input
   color #2c3e50
   font-size 1em
   padding 10px
-  width 200px
+  width auto
   border  2px #42b983 solid
   border-radius 4px
 input
-  width 400px
+  width auto
   display inline-block
   margin-left 20px
   margin-top 20px
